@@ -1,0 +1,28 @@
+﻿@using DevicesManager.Models;
+@model List<ApplicationUser>
+
+@{
+    ViewBag.Title = "Random";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    string adminCSSClass;
+}
+
+<h2>Users list</h2>
+
+<ul>
+    @foreach (var user in Model)
+    {
+        if ( Roles.FindUsersInRole(user.Id) user.Roles.FirstOrDefault == RoleName.Admin)
+        {
+            adminCSSClass = "admin";
+        }
+        else
+        {
+            adminCSSClass = null;
+        }
+    <li class="@adminCSSClass">@Html.ActionLink(@user.Name, user.ToString(), "Users/Details")</li>
+    }
+</ul>

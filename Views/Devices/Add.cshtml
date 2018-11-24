@@ -1,0 +1,17 @@
+﻿@model  DevicesManager.Models.Device
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Add Device</h2>
+
+@using (@Html.BeginForm("Add", "Devices"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+    </div>
+    <button type = "submit" class="btn btn-primary">Add</button>
+}
+

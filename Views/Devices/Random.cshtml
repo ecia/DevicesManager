@@ -1,0 +1,33 @@
+﻿@model DevicesManager.ViewModels.UserDeviceViewModel
+@{
+    ViewBag.Title = "Random";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    string activeCSSClass;
+}
+
+<h2>@Model.UserName</h2>
+@if(Model.Devices.Count==0)
+{
+    <p>The user has no devices yet.</p>
+}
+else
+{
+<ul>
+    @foreach (var device in Model.Devices)
+    {
+        if (device.IsActive == true)
+        {
+            activeCSSClass = "active";
+        }
+        else
+        {
+            activeCSSClass = null;
+        }
+
+    <li class="@activeCSSClass">@Html.ActionLink(device.Name, device.DeviceId.ToString(), "Devices/Details" )</li>
+    }
+    </ul>
+}

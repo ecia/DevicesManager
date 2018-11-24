@@ -1,0 +1,43 @@
+﻿@model DevicesManager.Models.Device
+
+<h1> @Model.Name </h1>
+@{
+    string status = "disconnected";
+}
+@if (Model.IsActive)
+{
+    status = "connected";
+}
+
+<div class="body-content">
+    
+    <p>The device status is: @status.</p>
+
+    <div class="row">
+        <div col-md-6>
+            @Html.LabelFor(m => m.ProcessNumber)
+        </div>
+        <div col-md-6>
+            @Html.ValueFor(m => m.ProcessNumber)
+        </div>
+    </div>
+
+    <div class="row">
+        <div col-md-6>
+            @Html.LabelFor(m => m.RAM)
+        </div>
+        <div col-md-6>
+            @Html.ValueFor(m => m.RAM)
+        </div>
+    </div>
+
+    <div class="row">
+        <div col-md-6>
+            @Html.LabelFor(m => m.CPU)
+        </div>
+        <div col-md-6>
+            @Html.ValueFor(m => m.CPU)
+        </div>
+    </div>
+</div>
+

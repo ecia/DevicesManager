@@ -1,0 +1,52 @@
+﻿@model DevicesManager.Models.IndexViewModel
+@{
+    ViewBag.Title = "Zarządzaj";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+
+<h4>Zmień ustawienia konta</h4>
+<hr />
+<p>@Model.UserInfo.Name</p>
+
+<div class="body-content">
+
+    <div class="row">
+        <div col-md-6>
+            @Html.LabelFor(m => m.UserInfo.FirstName)
+        </div>
+        <div col-md-6>
+            @Html.TextBoxFor(m => m.UserInfo.FirstName)
+        </div>
+    </div>
+
+    <div class="row">
+        <div col-md-6>
+            @Html.LabelFor(m => m.UserInfo.Surname)
+        </div>
+        <div col-md-6>
+            @Html.TextBoxFor(m => m.UserInfo.Surname)
+        </div>
+    </div>
+
+</div>
+<dl>
+    <dt>Hasło:</dt>
+    <dd>
+        @if (Model.HasPassword)
+        {
+            <input type="button" class="btn btn-info" value="Zmień hasło" onclick="location.href='@Url.Action("ChangePassword", "Manage")'" />
+
+        }
+        else
+        {
+            <input type="button" class="btn btn-info" value="Utwórz" onclick="location.href='@Url.Action("SetPassword", "Manage")'" />
+        }
+    </dd>
+    <dt>Logowania zewnętrzne:</dt>
+    <dd>
+        <input type="button" class="btn btn-info" value="Zarządzaj" onclick="location.href='@Url.Action("ManageLogins", "Manage")'" />
+    </dd>
+</dl>
