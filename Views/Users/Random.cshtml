@@ -1,5 +1,5 @@
 ﻿@using DevicesManager.Models;
-@model List<ApplicationUser>
+@model IEnumerable<DevicesManager.ViewModels.ManageUsersViewModel>
 
 @{
     ViewBag.Title = "Random";
@@ -12,17 +12,53 @@
 
 <h2>Users list</h2>
 
-<ul>
-    @foreach (var user in Model)
-    {
-        if ( Roles.FindUsersInRole(user.Id) user.Roles.FirstOrDefault == RoleName.Admin)
+<table id="usersTable" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Użytkownik</th>
+            <th>Usuń</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
         {
-            adminCSSClass = "admin";
+            if (user.Role == RoleName.Admin)
+            {
+                adminCSSClass = "admin";
+            }
+            else
+            {
+                adminCSSClass = null;
+            }
+        
+        <tr>
+            <td class="@adminCSSClass">@Html.ActionLink(user.UserFirstName + " " + user.UserSurname, user.UserId, "Users/Details")</td>
+            <td>
+                <button data-user-id="@user.UserId" class="btn-link js-delete">Usuń</button>
+            </td>
+        </tr>
         }
-        else
-        {
-            adminCSSClass = null;
-        }
-    <li class="@adminCSSClass">@Html.ActionLink(@user.Name, user.ToString(), "Users/Details")</li>
-    }
-</ul>
+
+    </tbody>
+</table>
+<a class="btn btn-default" href=@Url.Action("Register", "Account")>Dodaj</a>
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#usersTable .js-delete").on("click", function () {
+                var button = $(this);
+                if (confirm("Czy na pewno chcesz usunąć tego użytkownika?"))
+                    $.ajax({
+                        type: "GET",
+                        url: "/users/delete/" + $(this).attr("data-user-id"),
+                        success: function () {
+                            button.parents("tr").remove();
+                        }
+                    });
+            });
+        });
+    </script>
+}

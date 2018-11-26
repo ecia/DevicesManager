@@ -9,25 +9,58 @@
 }
 
 <h2>@Model.UserName</h2>
-@if(Model.Devices.Count==0)
+@if (Model.Devices.Count == 0)
 {
     <p>The user has no devices yet.</p>
 }
 else
 {
-<ul>
-    @foreach (var device in Model.Devices)
-    {
-        if (device.IsActive == true)
-        {
-            activeCSSClass = "active";
-        }
-        else
-        {
-            activeCSSClass = null;
-        }
+    <table id="devicesTable" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Urządzenie</th>
+                <th>Usuń</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var device in Model.Devices)
+            {
+                if (device.IsActive == true)
+                {
+                    activeCSSClass = "active";
+                }
+                else
+                {
+                    activeCSSClass = null;
+                }
+            <tr>
+                <td class="@activeCSSClass">@Html.ActionLink(device.Name, device.DeviceId.ToString(), "Devices/Details")</td>
+                <td>
+                    <button data-device-id = "@device.DeviceId" class = "btn-link js-delete">Usuń</button>
+                </td>
+            </tr>
 
-    <li class="@activeCSSClass">@Html.ActionLink(device.Name, device.DeviceId.ToString(), "Devices/Details" )</li>
-    }
-    </ul>
+                 }
+        </tbody>
+    </table>
+}
+<a class="btn btn-default" href=@Url.Action("Add", "Devices")>Dodaj</a>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#devicesTable .js-delete").on("click", function () {
+                var button = $(this);
+                if (confirm("Czy na pewno chcesz usunąć urządzenie?"))
+                    $.ajax({
+                        type: "GET",
+                        url: "/devices/delete/" + $(this).attr("data-device-id"),
+                        success: function () {
+                            button.parents("tr").remove();
+                        }
+                    });
+            });
+        });
+    </script>
 }

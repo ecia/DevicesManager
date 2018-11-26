@@ -64,9 +64,24 @@ namespace DevicesManager.Controllers
         [HttpPost]
         public ActionResult Add(Device device)
         {
-            _context.Devices.Add(device);
+            if (ModelState.IsValid)
+            {
+                device.UserId = User.Identity.GetUserId();
+                _context.Devices.Add(device);
+                _context.SaveChanges();
+                return RedirectToAction("Random", "Devices");
+            }
+
+            return View(device);
+            }
+
+        public string Delete(int id)
+        {
+            var device = _context.Devices.Find(id);
+            _context.Devices.Remove(device);
             _context.SaveChanges();
-            return RedirectToAction("Random", "Devices");
+
+            return "Success";
         }
 
         public ActionResult Edit(int id)

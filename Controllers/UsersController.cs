@@ -1,7 +1,9 @@
 ﻿using DevicesManager.Models;
+using DevicesManager.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
@@ -27,20 +29,40 @@ namespace DevicesManager.Controllers
         [AllowAnonymous]
         public ActionResult Random()
             {
-                var users = userManager.Users.ToList();
-                return View(users);
+            var usersWithRoles = (from user in _context.Users
+                                  select new
+                                  {
+                                      UserId = user.Id,
+                                      UserFirstName = user.userInformations.FirstName,
+                                      UserSurname = user.userInformations.Surname,
+                                      Email = user.Email,
+                                      RoleNames = (from userRole in user.Roles
+                                                   join role in _context.Roles on userRole.RoleId
+                                                   equals role.Id
+                                                   select role.Name).ToList()
+                                  }).ToList().Select(p => new ManageUsersViewModel()
+
+                                  {
+                                      UserId = p.UserId,
+                                      UserFirstName = p.UserFirstName,
+                                      UserSurname = p.UserSurname,
+                                      Email = p.Email,
+                                      Role = string.Join(",", p.RoleNames)
+                                  });
+
+            return View(usersWithRoles);
             }
         
         public ActionResult Details(string id)
         {
             var user = _context.Users.ToList().SingleOrDefault(c => c.Id == id);
+
             if (user == null)
                 return HttpNotFound();
             return View(user);
         }
 
-            // GET: User/Edit/5F
-            public ActionResult Edit(int id)
+        public ActionResult Edit(int id)
             {
                 return View();
             }
@@ -49,41 +71,17 @@ namespace DevicesManager.Controllers
             [HttpPost]
             public ActionResult Edit(int id, FormCollection collection)
             {
-                try
-                {
-                    // TODO: Add update logic here
-
-                    return RedirectToAction("Index");
-                }
-                catch
-                {
-                    return View();
-                }
+                return RedirectToAction("Index");
+                
             }
 
-            // GET: User/Delete/5
-            public ActionResult Delete(int id)
+            public string Delete(string id)
             {
-                return View();
+                var user = _context.Users.Find(id);
+                _context.Users.Remove(user);
+                _context.SaveChanges();
+
+                return "Success";
             }
-
-            // POST: User/Delete/5
-            [HttpPost]
-            public ActionResult Delete(int id, FormCollection collection)
-            {
-                try
-                {
-                    // TODO: Add delete logic here
-
-                    return RedirectToAction("Index");
-                }
-                catch
-                {
-                    return View();
-                }
-            }
-
-        
     }
-
 }

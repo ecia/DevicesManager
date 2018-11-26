@@ -14,6 +14,7 @@ namespace DevicesManager.Models
         public string UserId { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
         [Required]
+        [Display(Name = "Nazwa")]
         [StringLength(255)]
         public string Name { get; set; }
         public bool IsActive { get; set; }
