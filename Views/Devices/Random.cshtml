@@ -8,10 +8,12 @@
     string activeCSSClass;
 }
 
+@Html.Partial("~/Views/Shared/_Modal.cshtml")
+
 <h2>@Model.UserName</h2>
 @if (Model.Devices.Count == 0)
 {
-    <p>The user has no devices yet.</p>
+    <p>Nie posiadasz jeszcze żadnych urządzeń.</p>
 }
 else
 {
@@ -27,20 +29,20 @@ else
             {
                 if (device.IsActive == true)
                 {
-                    activeCSSClass = "active";
+                    activeCSSClass = "device-active";
                 }
                 else
                 {
                     activeCSSClass = null;
                 }
-            <tr>
-                <td class="@activeCSSClass">@Html.ActionLink(device.Name, device.DeviceId.ToString(), "Devices/Details")</td>
-                <td>
-                    <button data-device-id = "@device.DeviceId" class = "btn-link js-delete">Usuń</button>
-                </td>
-            </tr>
+                <tr class="@activeCSSClass">
+                    <td>@Html.ActionLink(device.Name, device.DeviceId.ToString(), "Devices/Details")</td>
+                    <td>
+                        <button data-device-id="@device.DeviceId" data-toggle="modal" data-target="#confirm-delete" class="btn-link js-delete">Usuń</button>
+                    </td>
+                </tr>
 
-                 }
+            }
         </tbody>
     </table>
 }
@@ -49,18 +51,25 @@ else
 @section scripts
 {
     <script>
-        $(document).ready(function () {
-            $("#devicesTable .js-delete").on("click", function () {
-                var button = $(this);
-                if (confirm("Czy na pewno chcesz usunąć urządzenie?"))
-                    $.ajax({
-                        type: "GET",
-                        url: "/devices/delete/" + $(this).attr("data-device-id"),
-                        success: function () {
-                            button.parents("tr").remove();
-                        }
-                    });
-            });
+
+
+        $("button.js-delete").click(function (e) {
+            var anchor = this;
+            $('#confirm-delete').modal('show').attr('href', $(anchor).attr("data-device-id"));
+            return false;
         });
+
+        $('a#confirm').click(function (e) {
+            var button = $(this);
+            $('#confirm-delete').modal('hide');
+                $.ajax({ 
+                    type: "GET",
+                    url: "/devices/delete/" + $('#confirm-delete').attr('href'),
+                    success: function () {
+                        location.reload();
+                    }
+                });  
+        });
+        
     </script>
 }

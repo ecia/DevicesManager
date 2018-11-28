@@ -137,6 +137,14 @@ namespace DevicesManager.Controllers
         //
         // GET: /Account/Register
         [AllowAnonymous]
+        public ActionResult Add()
+        {
+            return View();
+        }
+
+        //
+        // GET: /Account/Register
+        [AllowAnonymous]
         public ActionResult Register()
         {
             return View();
@@ -166,6 +174,30 @@ namespace DevicesManager.Controllers
 
             // Dotarcie do tego miejsca wskazuje, że wystąpił błąd, wyświetl ponownie formularz
             return View(model);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Add(RegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var userInf = new User { FirstName = model.FirstName, Surname = model.Surname };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, userInformations = userInf };
+                var result = await UserManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    await UserManager.AddToRoleAsync(user.Id, RoleName.User);
+
+                    return RedirectToAction("Index", "Home");
+                }
+                AddErrors(result);
+            }
+
+            // Dotarcie do tego miejsca wskazuje, że wystąpił błąd, wyświetl ponownie formularz
+            return View("Register", model);
         }
 
         //

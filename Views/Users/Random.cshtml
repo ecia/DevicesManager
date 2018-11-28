@@ -10,7 +10,9 @@
     string adminCSSClass;
 }
 
-<h2>Users list</h2>
+<h2>Lista użytkowników</h2>
+
+@Html.Partial("~/Views/Shared/_Modal.cshtml")
 
 <table id="usersTable" class="table table-bordered table-hover">
     <thead>
@@ -30,35 +32,49 @@
             {
                 adminCSSClass = null;
             }
-        
-        <tr>
-            <td class="@adminCSSClass">@Html.ActionLink(user.UserFirstName + " " + user.UserSurname, user.UserId, "Users/Details")</td>
-            <td>
-                <button data-user-id="@user.UserId" class="btn-link js-delete">Usuń</button>
-            </td>
-        </tr>
+
+            <tr class="@adminCSSClass">
+                <td>@Html.ActionLink(user.UserFirstName + " " + user.UserSurname, user.UserId, "Users/Details")</td>
+                <td>
+                    @if (adminCSSClass == null)
+                    {
+                        <button data-user-id="@user.UserId" data-toggle="modal" data-target="#confirm-delete" class="btn-link js-delete">Usuń</button>
+                    }
+                    else
+                    {
+                        <p>X</p>
+                    }
+
+                </td>
+            </tr>
         }
 
     </tbody>
 </table>
-<a class="btn btn-default" href=@Url.Action("Register", "Account")>Dodaj</a>
+<a class="btn btn-default" href=@Url.Action("Add", "Account")>Dodaj</a>
 
 
 @section scripts
 {
     <script>
-        $(document).ready(function () {
-            $("#usersTable .js-delete").on("click", function () {
-                var button = $(this);
-                if (confirm("Czy na pewno chcesz usunąć tego użytkownika?"))
-                    $.ajax({
-                        type: "GET",
-                        url: "/users/delete/" + $(this).attr("data-user-id"),
-                        success: function () {
-                            button.parents("tr").remove();
-                        }
-                    });
-            });
+        $("button.js-delete").click(function (e) {
+            var anchor = this;
+            $('#confirm-delete').modal('show').attr('href', $(anchor).attr("data-user-id"));
+
+            console.log("delete click");
+            return false;
+        });
+
+        $('a#confirm').click(function (e) {
+            var button = $(this);
+            $('#confirm-delete').modal('hide');
+            $.ajax({ 
+                type: "GET",
+                url: "/users/delete/" + $('#confirm-delete').attr('href'),
+                success: function () {
+                    location.reload();
+                }
+            });  
         });
     </script>
 }

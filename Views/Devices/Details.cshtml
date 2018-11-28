@@ -10,34 +10,43 @@
 }
 
 <div class="body-content">
-    
-    <p>The device status is: @status.</p>
 
-    <div class="row">
-        <div col-md-6>
-            @Html.LabelFor(m => m.ProcessNumber)
-        </div>
-        <div col-md-6>
-            @Html.ValueFor(m => m.ProcessNumber)
-        </div>
+    <p>The device status is: @status</p>
+
+    <div class="form-group">
+            <div col-md-6>
+                @Html.LabelFor(m => m.ProcessNumber)
+            </div>
+            <div col-md-6>
+                @Html.ValueFor(m => m.ProcessNumber)
+            </div>
     </div>
 
-    <div class="row">
-        <div col-md-6>
-            @Html.LabelFor(m => m.RAM)
-        </div>
-        <div col-md-6>
-            @Html.ValueFor(m => m.RAM)
-        </div>
+    <div class="form-group">
+            <div col-md-6>
+                @Html.LabelFor(m => m.RAM)
+            </div>
+            <div col-md-6>
+                @Html.ValueFor(m => m.RAM)
+            </div>
     </div>
 
-    <div class="row">
-        <div col-md-6>
-            @Html.LabelFor(m => m.CPU)
-        </div>
-        <div col-md-6>
-            @Html.ValueFor(m => m.CPU)
+    <div class="form-group">
+            <div col-md-6>
+                @Html.LabelFor(m => m.CPU)
+            </div>
+            <div col-md-6>
+                @Html.ValueFor(m => m.CPU)
+            </div>
+    </div>
+        <div class="row">
+            <div class="col-md-5 space">
+                <button class="btn btn-block">Wyślij plik</button>
+            </div>
+
+            <div class="col-md-5 space">
+                <button class="btn btn-block">Pobierz plik</button>
+            </div>
         </div>
     </div>
-</div>
 

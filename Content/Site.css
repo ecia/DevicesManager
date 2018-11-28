@@ -20,5 +20,19 @@
 input,
 select,
 textarea {
-    max-width: 280px;
+    max-width: 280px; 
+}
+
+.space{
+    margin-bottom: 5px;
+}
+
+tr.device-active {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+tr.admin {
+    background-color: #d4edda;
+    color: #155724;
 }

@@ -9,7 +9,6 @@ namespace DevicesManager.Models
 {
     public static class RoleName
     {
-
         [Display(Name = "Administrator")]
         public const string Admin = "Admin";
 

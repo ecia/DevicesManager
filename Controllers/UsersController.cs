@@ -63,25 +63,33 @@ namespace DevicesManager.Controllers
         }
 
         public ActionResult Edit(int id)
+        {
+            return View();
+        }
+
+        // POST: User/Edit/5
+        [HttpPost]
+        public ActionResult Edit(int id, FormCollection collection)
+        {
+            return RedirectToAction("Index");
+
+        }
+
+        public ActionResult Delete(string id)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.Id == id);
+            var devices = _context.Devices;
+
+            foreach (var device in devices)
             {
-                return View();
+                if(device.UserId == user.Id)
+                    _context.Devices.Remove(device);
             }
 
-            // POST: User/Edit/5
-            [HttpPost]
-            public ActionResult Edit(int id, FormCollection collection)
-            {
-                return RedirectToAction("Index");
-                
-            }
+            _context.Users.Remove(user);
+            _context.SaveChanges();
 
-            public string Delete(string id)
-            {
-                var user = _context.Users.Find(id);
-                _context.Users.Remove(user);
-                _context.SaveChanges();
-
-                return "Success";
-            }
+            return Json(new { Success = true });
+        }
     }
 }

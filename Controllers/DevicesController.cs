@@ -8,13 +8,14 @@ using DevicesManager.Models;
 using DevicesManager.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using DevicesManager.ServiceReference;
 
 namespace DevicesManager.Controllers
 {
     public class DevicesController : Controller
     {
         private ApplicationDbContext _context;
-
+        private ServiceClient serviceClient = new ServiceClient();
 
         public DevicesController()
         {
@@ -82,6 +83,17 @@ namespace DevicesManager.Controllers
             _context.SaveChanges();
 
             return "Success";
+        }
+
+        public string getFile()
+        {
+            //return serviceClient.Message();
+            return "";
+        }
+
+        public void sendFile()
+        {
+
         }
 
         public ActionResult Edit(int id)

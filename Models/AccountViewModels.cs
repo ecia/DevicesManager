@@ -89,6 +89,11 @@ namespace DevicesManager.Models
         public string ConfirmPassword { get; set; }
     }
 
+    public class AddViewModel
+    {
+        public RegisterViewModel RegisterViewModel { get; set; }
+    }
+
     public class ResetPasswordViewModel
     {
         [Required]
