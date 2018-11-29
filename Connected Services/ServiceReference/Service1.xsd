@@ -1,32 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:57678/Service.svc?xsd=xsd2" namespace="http://schemas.microsoft.com/Message" />
-  <xs:element name="getCPUPerformence">
+  <xs:element name="GetCPUPerformence">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCPUPerformenceResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="cpuPreformence" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="GetCPUPerformenceResult" type="xs:double" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="getCPUPerformenceResponse">
+  <xs:element name="GetRAMPerformence">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetRAMPerformenceResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="getCPUPerformenceResult" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="GetRAMPerformenceResult" type="xs:double" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="getRAMPerformence">
+  <xs:element name="SetCPUPerformence">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="ramPerformence" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="cpu" type="xs:double" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="getRAMPerformenceResponse">
+  <xs:element name="SetCPUPerformenceResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetRAMPerformence">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="getRAMPerformenceResult" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ram" type="xs:double" />
       </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetRAMPerformenceResponse">
+    <xs:complexType>
+      <xs:sequence />
     </xs:complexType>
   </xs:element>
   <xs:element name="Upload">

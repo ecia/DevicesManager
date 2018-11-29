@@ -23,12 +23,13 @@ namespace DevicesManager.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-
+        public DbSet<DeviceData> DevicesData { get; set; }
         public DbSet<Device> Devices { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
+            //Database.SetInitializer<ApplicationDbContext>(null);
         }
 
         public static ApplicationDbContext Create()

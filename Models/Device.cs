@@ -18,9 +18,5 @@ namespace DevicesManager.Models
         [StringLength(255)]
         public string Name { get; set; }
         public bool IsActive { get; set; }
-        public int? Battery { get; set; }
-        public string CPU { get; set; }
-        public int? RAM { get; set; }
-        public int? ProcessNumber { get; set; }
     }
 }

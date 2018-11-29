@@ -15,17 +15,29 @@ namespace DevicesManager.ServiceReference {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference.IService")]
     public interface IService {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/getCPUPerformence", ReplyAction="http://tempuri.org/IService/getCPUPerformenceResponse")]
-        string getCPUPerformence(string cpuPreformence);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetCPUPerformence", ReplyAction="http://tempuri.org/IService/GetCPUPerformenceResponse")]
+        double GetCPUPerformence();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/getCPUPerformence", ReplyAction="http://tempuri.org/IService/getCPUPerformenceResponse")]
-        System.Threading.Tasks.Task<string> getCPUPerformenceAsync(string cpuPreformence);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetCPUPerformence", ReplyAction="http://tempuri.org/IService/GetCPUPerformenceResponse")]
+        System.Threading.Tasks.Task<double> GetCPUPerformenceAsync();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/getRAMPerformence", ReplyAction="http://tempuri.org/IService/getRAMPerformenceResponse")]
-        string getRAMPerformence(string ramPerformence);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetRAMPerformence", ReplyAction="http://tempuri.org/IService/GetRAMPerformenceResponse")]
+        double GetRAMPerformence();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/getRAMPerformence", ReplyAction="http://tempuri.org/IService/getRAMPerformenceResponse")]
-        System.Threading.Tasks.Task<string> getRAMPerformenceAsync(string ramPerformence);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetRAMPerformence", ReplyAction="http://tempuri.org/IService/GetRAMPerformenceResponse")]
+        System.Threading.Tasks.Task<double> GetRAMPerformenceAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/SetCPUPerformence", ReplyAction="http://tempuri.org/IService/SetCPUPerformenceResponse")]
+        void SetCPUPerformence(double cpu);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/SetCPUPerformence", ReplyAction="http://tempuri.org/IService/SetCPUPerformenceResponse")]
+        System.Threading.Tasks.Task SetCPUPerformenceAsync(double cpu);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/SetRAMPerformence", ReplyAction="http://tempuri.org/IService/SetRAMPerformenceResponse")]
+        void SetRAMPerformence(double ram);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/SetRAMPerformence", ReplyAction="http://tempuri.org/IService/SetRAMPerformenceResponse")]
+        System.Threading.Tasks.Task SetRAMPerformenceAsync(double ram);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/Upload", ReplyAction="http://tempuri.org/IService/UploadResponse")]
         string Upload(System.IO.Stream input);
@@ -67,20 +79,36 @@ namespace DevicesManager.ServiceReference {
                 base(binding, remoteAddress) {
         }
         
-        public string getCPUPerformence(string cpuPreformence) {
-            return base.Channel.getCPUPerformence(cpuPreformence);
+        public double GetCPUPerformence() {
+            return base.Channel.GetCPUPerformence();
         }
         
-        public System.Threading.Tasks.Task<string> getCPUPerformenceAsync(string cpuPreformence) {
-            return base.Channel.getCPUPerformenceAsync(cpuPreformence);
+        public System.Threading.Tasks.Task<double> GetCPUPerformenceAsync() {
+            return base.Channel.GetCPUPerformenceAsync();
         }
         
-        public string getRAMPerformence(string ramPerformence) {
-            return base.Channel.getRAMPerformence(ramPerformence);
+        public double GetRAMPerformence() {
+            return base.Channel.GetRAMPerformence();
         }
         
-        public System.Threading.Tasks.Task<string> getRAMPerformenceAsync(string ramPerformence) {
-            return base.Channel.getRAMPerformenceAsync(ramPerformence);
+        public System.Threading.Tasks.Task<double> GetRAMPerformenceAsync() {
+            return base.Channel.GetRAMPerformenceAsync();
+        }
+        
+        public void SetCPUPerformence(double cpu) {
+            base.Channel.SetCPUPerformence(cpu);
+        }
+        
+        public System.Threading.Tasks.Task SetCPUPerformenceAsync(double cpu) {
+            return base.Channel.SetCPUPerformenceAsync(cpu);
+        }
+        
+        public void SetRAMPerformence(double ram) {
+            base.Channel.SetRAMPerformence(ram);
+        }
+        
+        public System.Threading.Tasks.Task SetRAMPerformenceAsync(double ram) {
+            return base.Channel.SetRAMPerformenceAsync(ram);
         }
         
         public string Upload(System.IO.Stream input) {

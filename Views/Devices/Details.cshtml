@@ -1,10 +1,11 @@
-﻿@model DevicesManager.Models.Device
+﻿@model DevicesManager.ViewModels.DeviceDetailsViewModel
 
-<h1> @Model.Name </h1>
+<h1> @Model.Device.Name </h1>
 @{
     string status = "disconnected";
+    var lastData = Model.DeviceData.OrderBy(d => d.SendDateTime).FirstOrDefault();
 }
-@if (Model.IsActive)
+@if (Model.Device.IsActive)
 {
     status = "connected";
 }
@@ -15,38 +16,56 @@
 
     <div class="form-group">
             <div col-md-6>
-                @Html.LabelFor(m => m.ProcessNumber)
+                @Html.LabelFor(m => lastData.ProcessNumber)
             </div>
             <div col-md-6>
-                @Html.ValueFor(m => m.ProcessNumber)
-            </div>
-    </div>
-
-    <div class="form-group">
-            <div col-md-6>
-                @Html.LabelFor(m => m.RAM)
-            </div>
-            <div col-md-6>
-                @Html.ValueFor(m => m.RAM)
-            </div>
-    </div>
-
-    <div class="form-group">
-            <div col-md-6>
-                @Html.LabelFor(m => m.CPU)
-            </div>
-            <div col-md-6>
-                @Html.ValueFor(m => m.CPU)
-            </div>
-    </div>
-        <div class="row">
-            <div class="col-md-5 space">
-                <button class="btn btn-block">Wyślij plik</button>
-            </div>
-
-            <div class="col-md-5 space">
-                <button class="btn btn-block">Pobierz plik</button>
+                @Html.ValueFor(m => lastData.ProcessNumber)
             </div>
         </div>
-    </div>
 
+        <div class="form-group">
+            <div col-md-6>
+                @Html.LabelFor(m => lastData.RAM)
+            </div>
+            <div col-md-6>
+                @Html.ValueFor(m => lastData.RAM)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div col-md-6>
+                @Html.LabelFor(m => lastData.CPU)
+            </div>
+            <div col-md-6>
+                @Html.ValueFor(m => lastData.CPU)
+            </div>
+        </div>
+    <div class="row">
+        <div class="col-md-5 space">
+            <a class="btn btn-default" href=@Url.Action("RefreshDetails", "Devices")>Odświerz dane</a>
+            <button id="refresh" device-id="@Model.Device.DeviceId.ToString()" class="btn btn-block">Odświerz dane</button>
+        </div>
+
+        <div class="col-md-5 space">
+            <button class="btn btn-block">Wyślij plik</button>
+        </div>
+
+        <div class="col-md-5 space">
+            <button class="btn btn-block">Pobierz plik</button>
+        </div>
+    </div>
+</div>
+@section scripts
+{
+<script>
+    //    $("button#refresh").click(function (e) {
+    //    $.ajax({
+    //        type: "GET",
+    //        url: "/devices/refreshDetails" + $(this).attr('device-id');
+    //        success: function () {
+    //            location.reload();
+    //        }
+    //    });
+    //});
+</script>
+}

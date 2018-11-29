@@ -52,9 +52,17 @@ namespace DevicesManager.Controllers
         public ActionResult Details(int id)
         {
             var device = _context.Devices.SingleOrDefault(c => c.DeviceId == id);
+            IEnumerable<DeviceData> deviceData = _context.DevicesData.Where(c => c.DeviceId == device.DeviceId).ToList();
+
+            var deviceDetails = new DeviceDetailsViewModel
+            {
+                Device = device,
+                DeviceData = deviceData
+            };
+
             if (device == null)
                 return HttpNotFound();
-            return View(device);
+            return View(deviceDetails);
         }
 
         public ActionResult Add()
@@ -85,20 +93,29 @@ namespace DevicesManager.Controllers
             return "Success";
         }
 
-        public string getFile()
+        public ActionResult Edit(int id)
+        {
+            return Content("id=" + id);
+        }
+
+        public string GetFile()
         {
             //return serviceClient.Message();
             return "";
         }
 
-        public void sendFile()
+        public void SendFile()
         {
 
         }
 
-        public ActionResult Edit(int id)
+        public ActionResult RefreshDetails(int deviceId)
         {
-            return Content("id=" + id);
+        //    data.Add(serviceClient.GetCPUPerformence());
+        //    data.Add(serviceClient.GetRAMPerformence());
+            return View();
         }
+
+
     }
 }
