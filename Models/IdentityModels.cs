@@ -25,6 +25,7 @@ namespace DevicesManager.Models
     {
         public DbSet<DeviceData> DevicesData { get; set; }
         public DbSet<Device> Devices { get; set; }
+        public DbSet<DeviceFile> DeviceFiles { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

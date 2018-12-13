@@ -9,47 +9,162 @@
 //------------------------------------------------------------------------------
 
 namespace DevicesManager.ServiceReference {
+    using System.Runtime.Serialization;
+    using System;
     
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="DeviceDataContract", Namespace="http://schemas.datacontract.org/2004/07/WcfService.Contracts")]
+    [System.SerializableAttribute()]
+    public partial class DeviceDataContract : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> BatteryField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<double> CpuField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int DeviceIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> ProcessNumberField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<double> RamField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime SendDateTimeField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> Battery {
+            get {
+                return this.BatteryField;
+            }
+            set {
+                if ((this.BatteryField.Equals(value) != true)) {
+                    this.BatteryField = value;
+                    this.RaisePropertyChanged("Battery");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<double> Cpu {
+            get {
+                return this.CpuField;
+            }
+            set {
+                if ((this.CpuField.Equals(value) != true)) {
+                    this.CpuField = value;
+                    this.RaisePropertyChanged("Cpu");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int DeviceId {
+            get {
+                return this.DeviceIdField;
+            }
+            set {
+                if ((this.DeviceIdField.Equals(value) != true)) {
+                    this.DeviceIdField = value;
+                    this.RaisePropertyChanged("DeviceId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> ProcessNumber {
+            get {
+                return this.ProcessNumberField;
+            }
+            set {
+                if ((this.ProcessNumberField.Equals(value) != true)) {
+                    this.ProcessNumberField = value;
+                    this.RaisePropertyChanged("ProcessNumber");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<double> Ram {
+            get {
+                return this.RamField;
+            }
+            set {
+                if ((this.RamField.Equals(value) != true)) {
+                    this.RamField = value;
+                    this.RaisePropertyChanged("Ram");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime SendDateTime {
+            get {
+                return this.SendDateTimeField;
+            }
+            set {
+                if ((this.SendDateTimeField.Equals(value) != true)) {
+                    this.SendDateTimeField = value;
+                    this.RaisePropertyChanged("SendDateTime");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference.IService")]
     public interface IService {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetCPUPerformence", ReplyAction="http://tempuri.org/IService/GetCPUPerformenceResponse")]
-        double GetCPUPerformence();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetDeviceData", ReplyAction="http://tempuri.org/IService/GetDeviceDataResponse")]
+        DevicesManager.ServiceReference.DeviceDataContract GetDeviceData(int deviceId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetCPUPerformence", ReplyAction="http://tempuri.org/IService/GetCPUPerformenceResponse")]
-        System.Threading.Tasks.Task<double> GetCPUPerformenceAsync();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetDeviceData", ReplyAction="http://tempuri.org/IService/GetDeviceDataResponse")]
+        System.Threading.Tasks.Task<DevicesManager.ServiceReference.DeviceDataContract> GetDeviceDataAsync(int deviceId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetRAMPerformence", ReplyAction="http://tempuri.org/IService/GetRAMPerformenceResponse")]
-        double GetRAMPerformence();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/SetDeviceData", ReplyAction="http://tempuri.org/IService/SetDeviceDataResponse")]
+        void SetDeviceData(int deviceId, double cpu, double ram);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetRAMPerformence", ReplyAction="http://tempuri.org/IService/GetRAMPerformenceResponse")]
-        System.Threading.Tasks.Task<double> GetRAMPerformenceAsync();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/SetCPUPerformence", ReplyAction="http://tempuri.org/IService/SetCPUPerformenceResponse")]
-        void SetCPUPerformence(double cpu);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/SetCPUPerformence", ReplyAction="http://tempuri.org/IService/SetCPUPerformenceResponse")]
-        System.Threading.Tasks.Task SetCPUPerformenceAsync(double cpu);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/SetRAMPerformence", ReplyAction="http://tempuri.org/IService/SetRAMPerformenceResponse")]
-        void SetRAMPerformence(double ram);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/SetRAMPerformence", ReplyAction="http://tempuri.org/IService/SetRAMPerformenceResponse")]
-        System.Threading.Tasks.Task SetRAMPerformenceAsync(double ram);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/SetDeviceData", ReplyAction="http://tempuri.org/IService/SetDeviceDataResponse")]
+        System.Threading.Tasks.Task SetDeviceDataAsync(int deviceId, double cpu, double ram);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/Upload", ReplyAction="http://tempuri.org/IService/UploadResponse")]
-        string Upload(System.IO.Stream input);
+        void Upload(int deviceId, byte[] input);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/Upload", ReplyAction="http://tempuri.org/IService/UploadResponse")]
-        System.Threading.Tasks.Task<string> UploadAsync(System.IO.Stream input);
+        System.Threading.Tasks.Task UploadAsync(int deviceId, byte[] input);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/Download", ReplyAction="http://tempuri.org/IService/DownloadResponse")]
-        System.IO.Stream Download(string file);
+        System.IO.Stream Download(int deviceId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/Download", ReplyAction="http://tempuri.org/IService/DownloadResponse")]
-        System.Threading.Tasks.Task<System.IO.Stream> DownloadAsync(string file);
+        System.Threading.Tasks.Task<System.IO.Stream> DownloadAsync(int deviceId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -79,52 +194,36 @@ namespace DevicesManager.ServiceReference {
                 base(binding, remoteAddress) {
         }
         
-        public double GetCPUPerformence() {
-            return base.Channel.GetCPUPerformence();
+        public DevicesManager.ServiceReference.DeviceDataContract GetDeviceData(int deviceId) {
+            return base.Channel.GetDeviceData(deviceId);
         }
         
-        public System.Threading.Tasks.Task<double> GetCPUPerformenceAsync() {
-            return base.Channel.GetCPUPerformenceAsync();
+        public System.Threading.Tasks.Task<DevicesManager.ServiceReference.DeviceDataContract> GetDeviceDataAsync(int deviceId) {
+            return base.Channel.GetDeviceDataAsync(deviceId);
         }
         
-        public double GetRAMPerformence() {
-            return base.Channel.GetRAMPerformence();
+        public void SetDeviceData(int deviceId, double cpu, double ram) {
+            base.Channel.SetDeviceData(deviceId, cpu, ram);
         }
         
-        public System.Threading.Tasks.Task<double> GetRAMPerformenceAsync() {
-            return base.Channel.GetRAMPerformenceAsync();
+        public System.Threading.Tasks.Task SetDeviceDataAsync(int deviceId, double cpu, double ram) {
+            return base.Channel.SetDeviceDataAsync(deviceId, cpu, ram);
         }
         
-        public void SetCPUPerformence(double cpu) {
-            base.Channel.SetCPUPerformence(cpu);
+        public void Upload(int deviceId, byte[] input) {
+            base.Channel.Upload(deviceId, input);
         }
         
-        public System.Threading.Tasks.Task SetCPUPerformenceAsync(double cpu) {
-            return base.Channel.SetCPUPerformenceAsync(cpu);
+        public System.Threading.Tasks.Task UploadAsync(int deviceId, byte[] input) {
+            return base.Channel.UploadAsync(deviceId, input);
         }
         
-        public void SetRAMPerformence(double ram) {
-            base.Channel.SetRAMPerformence(ram);
+        public System.IO.Stream Download(int deviceId) {
+            return base.Channel.Download(deviceId);
         }
         
-        public System.Threading.Tasks.Task SetRAMPerformenceAsync(double ram) {
-            return base.Channel.SetRAMPerformenceAsync(ram);
-        }
-        
-        public string Upload(System.IO.Stream input) {
-            return base.Channel.Upload(input);
-        }
-        
-        public System.Threading.Tasks.Task<string> UploadAsync(System.IO.Stream input) {
-            return base.Channel.UploadAsync(input);
-        }
-        
-        public System.IO.Stream Download(string file) {
-            return base.Channel.Download(file);
-        }
-        
-        public System.Threading.Tasks.Task<System.IO.Stream> DownloadAsync(string file) {
-            return base.Channel.DownloadAsync(file);
+        public System.Threading.Tasks.Task<System.IO.Stream> DownloadAsync(int deviceId) {
+            return base.Channel.DownloadAsync(deviceId);
         }
     }
 }

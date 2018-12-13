@@ -3,7 +3,7 @@
 <h1> @Model.Device.Name </h1>
 @{
     string status = "disconnected";
-    var lastData = Model.DeviceData.OrderBy(d => d.SendDateTime).FirstOrDefault();
+    var lastData = Model.DeviceData.OrderBy(d => d.SendDateTime).LastOrDefault();
 }
 @if (Model.Device.IsActive)
 {
@@ -41,31 +41,30 @@
             </div>
         </div>
     <div class="row">
-        <div class="col-md-5 space">
-            <a class="btn btn-default" href=@Url.Action("RefreshDetails", "Devices")>Odświerz dane</a>
-            <button id="refresh" device-id="@Model.Device.DeviceId.ToString()" class="btn btn-block">Odświerz dane</button>
+        <div class="col-md-3 space">
+            <a class="btn btn-default btn-block" href=@Url.Action("Details", "Devices", new { id = Model.Device.DeviceId })>Odświerz dane</a>
         </div>
 
-        <div class="col-md-5 space">
-            <button class="btn btn-block">Wyślij plik</button>
+        <div class="col-md-3 space">
+            <a id ="download" device-id =@Model.Device.DeviceId class="btn btn-default btn-block"> Pobierz plik</a>
         </div>
 
-        <div class="col-md-5 space">
-            <button class="btn btn-block">Pobierz plik</button>
+        <div class="col-md-3 space">
+            <a class="btn btn-default btn-block" href=@Url.Action("RefreshDetails", "Devices", new { id = Model.Device.DeviceId })>Wyślij plik</a>
         </div>
     </div>
 </div>
 @section scripts
 {
 <script>
-    //    $("button#refresh").click(function (e) {
-    //    $.ajax({
-    //        type: "GET",
-    //        url: "/devices/refreshDetails" + $(this).attr('device-id');
-    //        success: function () {
-    //            location.reload();
-    //        }
-    //    });
-    //});
+        $("a#download").click(function (e) {
+        $.ajax({
+            type: "GET",
+            url: "/devices/GetFile/" + $(this).attr('device-id'),
+            success: function (data) {
+                console.log(data);
+            }
+        });
+    });
 </script>
 }

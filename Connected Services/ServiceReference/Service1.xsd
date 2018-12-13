@@ -1,50 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:57678/Service.svc?xsd=xsd2" namespace="http://schemas.microsoft.com/Message" />
-  <xs:element name="GetCPUPerformence">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetCPUPerformenceResponse">
+  <xs:import schemaLocation="http://localhost:57678/Service.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/WcfService.Contracts" />
+  <xs:import schemaLocation="http://localhost:57678/Service.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/Message" />
+  <xs:element name="GetDeviceData">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="GetCPUPerformenceResult" type="xs:double" />
+        <xs:element minOccurs="0" name="deviceId" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetRAMPerformence">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetRAMPerformenceResponse">
+  <xs:element name="GetDeviceDataResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="GetRAMPerformenceResult" type="xs:double" />
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/WcfService.Contracts" minOccurs="0" name="GetDeviceDataResult" nillable="true" type="q1:DeviceDataContract" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="SetCPUPerformence">
+  <xs:element name="SetDeviceData">
     <xs:complexType>
       <xs:sequence>
+        <xs:element minOccurs="0" name="deviceId" type="xs:int" />
         <xs:element minOccurs="0" name="cpu" type="xs:double" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="SetCPUPerformenceResponse">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="SetRAMPerformence">
-    <xs:complexType>
-      <xs:sequence>
         <xs:element minOccurs="0" name="ram" type="xs:double" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="SetRAMPerformenceResponse">
+  <xs:element name="SetDeviceDataResponse">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>
@@ -52,21 +33,20 @@
   <xs:element name="Upload">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q1="http://schemas.microsoft.com/Message" name="input" type="q1:StreamBody" />
+        <xs:element minOccurs="0" name="deviceId" type="xs:int" />
+        <xs:element minOccurs="0" name="input" nillable="true" type="xs:base64Binary" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="UploadResponse">
     <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="UploadResult" nillable="true" type="xs:string" />
-      </xs:sequence>
+      <xs:sequence />
     </xs:complexType>
   </xs:element>
   <xs:element name="Download">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="file" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="deviceId" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

@@ -26,7 +26,7 @@ namespace DevicesManager.Controllers
         {
             _context.Dispose();
         }
-        [AllowAnonymous]
+        
         public ActionResult Random()
             {
             var usersWithRoles = (from user in _context.Users
@@ -41,7 +41,6 @@ namespace DevicesManager.Controllers
                                                    equals role.Id
                                                    select role.Name).ToList()
                                   }).ToList().Select(p => new ManageUsersViewModel()
-
                                   {
                                       UserId = p.UserId,
                                       UserFirstName = p.UserFirstName,
@@ -53,29 +52,58 @@ namespace DevicesManager.Controllers
             return View(usersWithRoles);
             }
         
+
         public ActionResult Details(string id)
         {
+            var allRoles = _context.Roles.OrderBy(r => r.Name).ToList();
             var user = _context.Users.ToList().SingleOrDefault(c => c.Id == id);
 
             if (user == null)
                 return HttpNotFound();
-            return View(user);
+
+            var editUserViewModel = new EditUserViewModel()
+            {
+                User = user,
+                Roles = allRoles
+            };
+
+            return View(editUserViewModel);
         }
 
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: User/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Details(ApplicationUser appUser)
         {
-            return RedirectToAction("Index");
+            if (appUser.Id == null)
+            {
+                _context.Users.Add(appUser);
+            }
+            else
+            {
+                var user = _context.Users.ToList().Single(c => c.Id == appUser.Id);
+                user.userInformations.FirstName = appUser.userInformations.FirstName;
+                user.userInformations.Surname = appUser.userInformations.Surname;
+                //user.Roles = appUser.Roles;
+                userManager.GetRoles(appUser.Id);
 
+                var viewModel = new EditUserViewModel()
+                {
+                    User = user,
+                    Roles = _context.Roles.OrderBy(r => r.Name).ToList()
+                };
+
+                if (ModelState.IsValid)
+                {
+                    userManager.Update(user);
+
+                    return View(viewModel);
+                }
+                _context.SaveChanges();
+                return View(user.Id);
+            }
+            return RedirectToAction("Users","Random");
         }
 
-        public ActionResult Delete(string id)
+        public string Delete(string id)
         {
             var user = _context.Users.FirstOrDefault(u => u.Id == id);
             var devices = _context.Devices;
@@ -89,7 +117,7 @@ namespace DevicesManager.Controllers
             _context.Users.Remove(user);
             _context.SaveChanges();
 
-            return Json(new { Success = true });
+            return "Success";
         }
     }
 }

@@ -257,10 +257,19 @@
     <Compile Include="Migrations\201811282356504_DeviceDataChangeColumnName.Designer.cs">
       <DependentUpon>201811282356504_DeviceDataChangeColumnName.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812121219217_AddDeviceFile.cs" />
+    <Compile Include="Migrations\201812121219217_AddDeviceFile.Designer.cs">
+      <DependentUpon>201812121219217_AddDeviceFile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812121222084_AddDeviceFile1.cs" />
+    <Compile Include="Migrations\201812121222084_AddDeviceFile1.Designer.cs">
+      <DependentUpon>201812121222084_AddDeviceFile1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Device.cs" />
     <Compile Include="Models\DeviceData.cs" />
+    <Compile Include="Models\DeviceFile.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\RoleName.cs" />
@@ -268,10 +277,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\DeviceDetailsViewModel.cs" />
+    <Compile Include="ViewModels\EditUserViewModel.cs" />
     <Compile Include="ViewModels\ManageUsersViewModel.cs" />
     <Compile Include="ViewModels\UserDeviceViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Connected Services\ServiceReference\DevicesManager.ServiceReference.DeviceDataContract.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
     <None Include="Connected Services\ServiceReference\Service.disco" />
     <None Include="Connected Services\ServiceReference\configuration91.svcinfo" />
     <None Include="Connected Services\ServiceReference\configuration.svcinfo" />
@@ -304,6 +317,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Connected Services\ServiceReference\Service3.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -315,7 +331,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -410,6 +428,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811282356504_DeviceDataChangeColumnName.resx">
       <DependentUpon>201811282356504_DeviceDataChangeColumnName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812121219217_AddDeviceFile.resx">
+      <DependentUpon>201812121219217_AddDeviceFile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812121222084_AddDeviceFile1.resx">
+      <DependentUpon>201812121222084_AddDeviceFile1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

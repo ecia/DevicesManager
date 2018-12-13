@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.IO;
 using System.Data.Entity;
 using DevicesManager.Models;
 using DevicesManager.ViewModels;
@@ -52,6 +53,13 @@ namespace DevicesManager.Controllers
         public ActionResult Details(int id)
         {
             var device = _context.Devices.SingleOrDefault(c => c.DeviceId == id);
+            //var dataContract = serviceClient.GetDeviceData(id);
+
+            //var deviceData = new IEnumerable<DeviceData>
+            //{
+
+            //};
+
             IEnumerable<DeviceData> deviceData = _context.DevicesData.Where(c => c.DeviceId == device.DeviceId).ToList();
 
             var deviceDetails = new DeviceDetailsViewModel
@@ -98,24 +106,53 @@ namespace DevicesManager.Controllers
             return Content("id=" + id);
         }
 
-        public string GetFile()
+        public string GetFile(int id)
         {
-            //return serviceClient.Message();
-            return "";
+            Stream file;
+            try
+            {
+                file = serviceClient.Download(id);
+                if (file != null)
+                {
+                    return "New file";
+                }
+            }
+            catch (System.ServiceModel.CommunicationException e)
+            {
+                return "No Service Connection";
+            }
+
+            return "No File";
+
         }
 
         public void SendFile()
         {
 
         }
+        
+        //public ActionResult RefreshDetails(int id)
+        //{
+        //    var deviceData = new DeviceData()
+        //    {
+        //        DeviceId = id,
+        //        SendDateTime = DateTime.Now
+        //    };
 
-        public ActionResult RefreshDetails(int deviceId)
-        {
-        //    data.Add(serviceClient.GetCPUPerformence());
-        //    data.Add(serviceClient.GetRAMPerformence());
-            return View();
-        }
+        //    List<DeviceData> datatList = _context.DevicesData.Where(d => d.DeviceId == id).ToList();
 
+        //    datatList.Add(deviceData);
 
+        //    var deviceDetails = new DeviceDetailsViewModel
+        //    {
+        //        Device = _context.Devices.Find(id),
+        //        DeviceData = datatList
+        //    };
+
+        //    _context.DevicesData.Add(deviceData);
+        //    _context.SaveChanges();
+
+        //    return View("Details", deviceDetails);
+        //}
     }
 }

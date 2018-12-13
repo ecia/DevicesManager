@@ -1,6 +1,44 @@
-﻿@model DevicesManager.Models.User
+﻿@using DevicesManager.Models
+@model DevicesManager.ViewModels.EditUserViewModel
 
-<h1> @Model.Name  </h1>
+<h1> @Model.User.userInformations.Name </h1>
 
-@*<div>@Html.DisplayNameFor(model => model.): @Model.UserId</div>*@
+@using (@Html.BeginForm("Details", "Users"))
+{
+    <div class="body-content">
+        <div class="form-group">
+            <div col-md-6>
+                @Html.LabelFor(m => m.User.userInformations.FirstName, new { @class = "col-md-2 control-label" })
+            </div>
+            <div col-md-6>
+                @Html.TextBoxFor(m => m.User.userInformations.FirstName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.User.userInformations.FirstName, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
+        <div class="form-group">
+            <div col-md-6>
+                @Html.LabelFor(m => m.User.userInformations.Surname, new { @class = "col-md-2 control-label" })
+            </div>
+            <div col-md-6>
+                @Html.TextBoxFor(m => m.User.userInformations.Surname, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.User.userInformations.Surname, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*Password for either creating new or changing existing user (rename to SAVE) *@
+
+        <div class="form-group">
+            <div col-md-6>
+                @Html.LabelFor(m => m.Roles, new { @class = "col-md-2 control-label" })
+            </div>
+            <div col-md-6>
+                @Html.DropDownListFor(m => m.User.Roles.FirstOrDefault().RoleId, new SelectList(Model.Roles, "Id", "Name", @Model.User.Roles.FirstOrDefault().RoleId), new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
+    </div>
+}
