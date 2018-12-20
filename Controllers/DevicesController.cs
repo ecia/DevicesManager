@@ -10,17 +10,20 @@ using DevicesManager.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using DevicesManager.ServiceReference;
+using System.ServiceModel;
 
 namespace DevicesManager.Controllers
 {
     public class DevicesController : Controller
     {
         private ApplicationDbContext _context;
-        private ServiceClient serviceClient = new ServiceClient();
+        private ServiceClient serviceClient;
 
         public DevicesController()
         {
             _context = new ApplicationDbContext();
+            InstanceContext instanceContext = new InstanceContext(this);
+            serviceClient = new ServiceClient(instanceContext);
         }
 
         protected override void Dispose(bool disposing)
@@ -111,26 +114,49 @@ namespace DevicesManager.Controllers
             Stream file;
             try
             {
-                file = serviceClient.Download(id);
-                if (file != null)
-                {
-                    return "New file";
-                }
+                //file = serviceClient.Download(id);
+                //if (file != null)
+                //{
+                //    return "New file";
+                //}
             }
             catch (System.ServiceModel.CommunicationException e)
             {
-                return "No Service Connection";
+                return "Nie udało się pobrać pliku.";
+            }
+            finally
+            {
+                serviceClient.Close();
             }
 
             return "No File";
 
         }
 
-        public void SendFile()
+        [HttpPost]
+        public string SendFile(int id, HttpPostedFileBase file)
         {
+            if (file != null && file.ContentLength > 0)
+                try
+                {
+                    //var stream = new MemoryStream();
+                    //file.InputStream.CopyTo(stream);
+                    //byte[] data = stream.ToArray();
 
+                    //serviceClient.Upload(id, data);
+
+                    return "File uploaded successfully";
+                }
+                catch (Exception ex)
+                {
+                    return "ERROR:" + ex.Message.ToString();
+                }
+            else
+            {
+                return "You have not specified a file.";
+            }
         }
-        
+
         //public ActionResult RefreshDetails(int id)
         //{
         //    var deviceData = new DeviceData()
