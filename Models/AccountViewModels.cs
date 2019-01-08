@@ -92,6 +92,7 @@ namespace DevicesManager.Models
     public class AddViewModel
     {
         public RegisterViewModel RegisterViewModel { get; set; }
+        public RoleName RoleName { get; set; }
     }
 
     public class ResetPasswordViewModel

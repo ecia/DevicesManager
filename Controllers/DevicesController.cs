@@ -22,8 +22,8 @@ namespace DevicesManager.Controllers
         public DevicesController()
         {
             _context = new ApplicationDbContext();
-            InstanceContext instanceContext = new InstanceContext(this);
-            serviceClient = new ServiceClient(instanceContext);
+            //InstanceContext instanceContext = new InstanceContext(this);
+            serviceClient = new ServiceClient();
         }
 
         protected override void Dispose(bool disposing)
@@ -139,11 +139,11 @@ namespace DevicesManager.Controllers
             if (file != null && file.ContentLength > 0)
                 try
                 {
-                    //var stream = new MemoryStream();
-                    //file.InputStream.CopyTo(stream);
-                    //byte[] data = stream.ToArray();
+                    var stream = new MemoryStream();
+                    file.InputStream.CopyTo(stream);
+                    byte[] data = stream.ToArray();
 
-                    //serviceClient.Upload(id, data);
+                    serviceClient.Upload(id, data);
 
                     return "File uploaded successfully";
                 }

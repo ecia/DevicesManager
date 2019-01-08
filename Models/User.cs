@@ -8,9 +8,11 @@ namespace DevicesManager.Models
 {
     public class User
     {
+        [Required]
         [Display(Name = "Imie")]
         public string FirstName { get; set; }
         [Display(Name = "Nazwisko")]
+        [Required]
         public string Surname { get; set; }
         [Display(Name = "Imię i nazwisko")]
         public string Name

@@ -1,42 +1,81 @@
 ﻿@using DevicesManager.Models
 @model DevicesManager.ViewModels.EditUserViewModel
 
-<h1> @Model.User.userInformations.Name </h1>
+@{
+    var name = Url.RequestContext.RouteData.Values["id"] == null ? "Nowy użytkownik": Model.User.userInformations.Name;
+    var role = @Model.User.Roles.FirstOrDefault();
+    var roleId = (role == null ? "0" : role.RoleId);
+}
+
+<h1>
+    @name 
+</h1>
+<hr/>
 
 @using (@Html.BeginForm("Details", "Users"))
 {
-    <div class="body-content">
-        <div class="form-group">
-            <div col-md-6>
-                @Html.LabelFor(m => m.User.userInformations.FirstName, new { @class = "col-md-2 control-label" })
-            </div>
-            <div col-md-6>
-                @Html.TextBoxFor(m => m.User.userInformations.FirstName, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.User.userInformations.FirstName, "", new { @class = "text-danger" })
-            </div>
+    @Html.ValidationSummary(true)
+<div class="body-content">
+    <div class="form-group">
+        <div col-md-6>
+            @Html.LabelFor(m => m.User.userInformations.FirstName, new { @class = "col-md-2 control-label" })
         </div>
-
-        <div class="form-group">
-            <div col-md-6>
-                @Html.LabelFor(m => m.User.userInformations.Surname, new { @class = "col-md-2 control-label" })
-            </div>
-            <div col-md-6>
-                @Html.TextBoxFor(m => m.User.userInformations.Surname, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.User.userInformations.Surname, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        @*Password for either creating new or changing existing user (rename to SAVE) *@
-
-        <div class="form-group">
-            <div col-md-6>
-                @Html.LabelFor(m => m.Roles, new { @class = "col-md-2 control-label" })
-            </div>
-            <div col-md-6>
-                @Html.DropDownListFor(m => m.User.Roles.FirstOrDefault().RoleId, new SelectList(Model.Roles, "Id", "Name", @Model.User.Roles.FirstOrDefault().RoleId), new { @class = "form-control" })
-            </div>
+        <div col-md-6>
+            @Html.TextBoxFor(m => m.User.userInformations.FirstName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.User.userInformations.FirstName, "", new { @class = "text-danger" })
         </div>
     </div>
+
+    <div class="form-group">
+        <div col-md-6>
+            @Html.LabelFor(m => m.User.userInformations.Surname, new { @class = "col-md-2 control-label" })
+        </div>
+        <div col-md-6>
+            @Html.TextBoxFor(m => m.User.userInformations.Surname, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.User.userInformations.Surname, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div col-md-6>
+            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+        </div>
+        <div col-md-6>
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div col-md-6>
+            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+        </div>
+        <div col-md-6>
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div col-md-6>
+            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+        </div>
+        <div col-md-6>
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div col-md-6>
+            @Html.LabelFor(m => m.Roles, new { @class = "col-md-2 control-label" })
+        </div>
+        <div col-md-6>
+            @Html.DropDownListFor((m => m.User.Roles.FirstOrDefault().RoleId ), 
+           new SelectList(Model.Roles, "Id", "Name", roleId ), new { @class = "form-control" })
+        </div>
+    </div>
+</div>
 
     <div class="form-group">
         <button type="submit" class="btn btn-primary">Zapisz zmiany</button>

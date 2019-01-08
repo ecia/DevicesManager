@@ -266,9 +266,12 @@
     <Compile Include="Migrations\201812121222084_AddDeviceFile1.Designer.cs">
       <DependentUpon>201812121222084_AddDeviceFile1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901072147355_userNameAndSurnameRequired.cs" />
+    <Compile Include="Migrations\201901072147355_userNameAndSurnameRequired.Designer.cs">
+      <DependentUpon>201901072147355_userNameAndSurnameRequired.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\CallbackContract.cs" />
     <Compile Include="Models\Device.cs" />
     <Compile Include="Models\DeviceData.cs" />
     <Compile Include="Models\DeviceFile.cs" />
@@ -372,7 +375,6 @@
     <Content Include="Views\Users\Details.cshtml" />
     <Content Include="Views\Shared\_Modal.cshtml" />
     <Content Include="Views\Account\_RegisterForm.cshtml" />
-    <Content Include="Views\Account\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -434,6 +436,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812121222084_AddDeviceFile1.resx">
       <DependentUpon>201812121222084_AddDeviceFile1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901072147355_userNameAndSurnameRequired.resx">
+      <DependentUpon>201901072147355_userNameAndSurnameRequired.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -15,7 +15,13 @@
     </div>
 
     <div class="form-group">
-            <button type="submit" class="btn btn-primary">Dodaj</button>
+        @Html.LabelFor(m => m.DeviceId)
+        @*@Html.DropDownListFor(m => m.DeviceId, ,new { @class = "form-control" })*@
+        @Html.ValidationMessageFor(m => m.DeviceId, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Dodaj</button>
     </div>
 }
 

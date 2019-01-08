@@ -36,14 +36,8 @@
             <tr class="@adminCSSClass">
                 <td>@Html.ActionLink(user.UserFirstName + " " + user.UserSurname, user.UserId, "Users/Details")</td>
                 <td>
-                    @if (adminCSSClass == null)
-                    {
                         <button data-user-id="@user.UserId" data-toggle="modal" data-target="#confirm-delete" class="btn-link js-delete">Usuń</button>
-                    }
-                    else
-                    {
-                        <p>X</p>
-                    }
+                    
 
                 </td>
             </tr>
@@ -51,7 +45,7 @@
 
     </tbody>
 </table>
-<a class="btn btn-default" href=@Url.Action("Add", "Account")>Dodaj</a>
+<a class="btn btn-default" href=@Url.Action("Details", "Users")>Dodaj</a>
 
 
 @section scripts
