@@ -10,20 +10,22 @@ using DevicesManager.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using DevicesManager.ServiceReference;
-using System.ServiceModel;
 
 namespace DevicesManager.Controllers
 {
     public class DevicesController : Controller
     {
         private ApplicationDbContext _context;
-        private ServiceClient serviceClient;
+        private ServiceClient serviceClient = new ServiceClient();
 
         public DevicesController()
         {
             _context = new ApplicationDbContext();
+<<<<<<< HEAD
             //InstanceContext instanceContext = new InstanceContext(this);
             serviceClient = new ServiceClient();
+=======
+>>>>>>> parent of 3df423a... Enable duplex communication
         }
 
         protected override void Dispose(bool disposing)
@@ -114,28 +116,24 @@ namespace DevicesManager.Controllers
             Stream file;
             try
             {
-                //file = serviceClient.Download(id);
-                //if (file != null)
-                //{
-                //    return "New file";
-                //}
+                file = serviceClient.Download(id);
+                if (file != null)
+                {
+                    return "New file";
+                }
             }
             catch (System.ServiceModel.CommunicationException e)
             {
-                return "Nie udało się pobrać pliku.";
-            }
-            finally
-            {
-                serviceClient.Close();
+                return "No Service Connection";
             }
 
             return "No File";
 
         }
 
-        [HttpPost]
-        public string SendFile(int id, HttpPostedFileBase file)
+        public void SendFile()
         {
+<<<<<<< HEAD
             if (file != null && file.ContentLength > 0)
                 try
                 {
@@ -144,19 +142,11 @@ namespace DevicesManager.Controllers
                     byte[] data = stream.ToArray();
 
                     serviceClient.Upload(id, data);
+=======
+>>>>>>> parent of 3df423a... Enable duplex communication
 
-                    return "File uploaded successfully";
-                }
-                catch (Exception ex)
-                {
-                    return "ERROR:" + ex.Message.ToString();
-                }
-            else
-            {
-                return "You have not specified a file.";
-            }
         }
-
+        
         //public ActionResult RefreshDetails(int id)
         //{
         //    var deviceData = new DeviceData()
