@@ -50,6 +50,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -286,9 +287,6 @@
     <Compile Include="ViewModels\UserDeviceViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Connected Services\ServiceReference\DevicesManager.ServiceReference.DeviceDataContract.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
     <None Include="Connected Services\ServiceReference\Service.disco" />
     <None Include="Connected Services\ServiceReference\configuration91.svcinfo" />
     <None Include="Connected Services\ServiceReference\configuration.svcinfo" />
@@ -324,6 +322,7 @@
     <None Include="Connected Services\ServiceReference\Service3.xsd">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Properties\DataSources\WcfService.Contracts.DeviceDataContract.datasource" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -447,6 +446,12 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\ServiceReference\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WcfService\WcfService.csproj">
+      <Project>{3A1BAEEC-BFEF-4622-8168-7C691BB5E482}</Project>
+      <Name>WcfService</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

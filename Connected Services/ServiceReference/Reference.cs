@@ -9,144 +9,17 @@
 //------------------------------------------------------------------------------
 
 namespace DevicesManager.ServiceReference {
-    using System.Runtime.Serialization;
-    using System;
     
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="DeviceDataContract", Namespace="http://schemas.datacontract.org/2004/07/WcfService.Contracts")]
-    [System.SerializableAttribute()]
-    public partial class DeviceDataContract : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<int> BatteryField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<double> CpuField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int DeviceIdField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<int> ProcessNumberField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<double> RamField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.DateTime SendDateTimeField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<int> Battery {
-            get {
-                return this.BatteryField;
-            }
-            set {
-                if ((this.BatteryField.Equals(value) != true)) {
-                    this.BatteryField = value;
-                    this.RaisePropertyChanged("Battery");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<double> Cpu {
-            get {
-                return this.CpuField;
-            }
-            set {
-                if ((this.CpuField.Equals(value) != true)) {
-                    this.CpuField = value;
-                    this.RaisePropertyChanged("Cpu");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int DeviceId {
-            get {
-                return this.DeviceIdField;
-            }
-            set {
-                if ((this.DeviceIdField.Equals(value) != true)) {
-                    this.DeviceIdField = value;
-                    this.RaisePropertyChanged("DeviceId");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<int> ProcessNumber {
-            get {
-                return this.ProcessNumberField;
-            }
-            set {
-                if ((this.ProcessNumberField.Equals(value) != true)) {
-                    this.ProcessNumberField = value;
-                    this.RaisePropertyChanged("ProcessNumber");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<double> Ram {
-            get {
-                return this.RamField;
-            }
-            set {
-                if ((this.RamField.Equals(value) != true)) {
-                    this.RamField = value;
-                    this.RaisePropertyChanged("Ram");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime SendDateTime {
-            get {
-                return this.SendDateTimeField;
-            }
-            set {
-                if ((this.SendDateTimeField.Equals(value) != true)) {
-                    this.SendDateTimeField = value;
-                    this.RaisePropertyChanged("SendDateTime");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference.IService")]
     public interface IService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetDeviceData", ReplyAction="http://tempuri.org/IService/GetDeviceDataResponse")]
-        DevicesManager.ServiceReference.DeviceDataContract GetDeviceData(int deviceId);
+        WcfService.Contracts.DeviceDataContract GetDeviceData(int deviceId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetDeviceData", ReplyAction="http://tempuri.org/IService/GetDeviceDataResponse")]
-        System.Threading.Tasks.Task<DevicesManager.ServiceReference.DeviceDataContract> GetDeviceDataAsync(int deviceId);
+        System.Threading.Tasks.Task<WcfService.Contracts.DeviceDataContract> GetDeviceDataAsync(int deviceId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/SetDeviceData", ReplyAction="http://tempuri.org/IService/SetDeviceDataResponse")]
         void SetDeviceData(int deviceId, double cpu, double ram);
@@ -194,11 +67,11 @@ namespace DevicesManager.ServiceReference {
                 base(binding, remoteAddress) {
         }
         
-        public DevicesManager.ServiceReference.DeviceDataContract GetDeviceData(int deviceId) {
+        public WcfService.Contracts.DeviceDataContract GetDeviceData(int deviceId) {
             return base.Channel.GetDeviceData(deviceId);
         }
         
-        public System.Threading.Tasks.Task<DevicesManager.ServiceReference.DeviceDataContract> GetDeviceDataAsync(int deviceId) {
+        public System.Threading.Tasks.Task<WcfService.Contracts.DeviceDataContract> GetDeviceDataAsync(int deviceId) {
             return base.Channel.GetDeviceDataAsync(deviceId);
         }
         
